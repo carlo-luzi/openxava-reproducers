@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE application SYSTEM "dtds/application.dtd">
+
+<application name="elemcol">
+
+	<default-module>
+		<controller name="Typical"/>
+	</default-module>
+
+	<!-- TypicalNotResetOnSave keeps the record visible after save,
+	     so the user can change the date without navigating away.
+	     The bug also occurs with Typical, but it's harder to reach
+	     because the form resets after save. -->
+	<module name="Record">
+		<model name="Record"/>
+		<controller name="TypicalNotResetOnSave"/>
+	</module>
+
+</application>

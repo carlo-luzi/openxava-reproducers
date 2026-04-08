@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE application SYSTEM "dtds/application.dtd">
+
+<application name="ordcol">
+
+	<default-module>
+		<controller name="Typical"/>
+	</default-module>
+
+	<module name="Project">
+		<model name="Project"/>
+		<controller name="TypicalNotResetOnSave"/>
+	</module>
+
+</application>

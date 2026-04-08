@@ -1,0 +1,8 @@
+target/
+data/
+.xava/
+*.iml
+.idea/
+.classpath
+.project
+.settings/
