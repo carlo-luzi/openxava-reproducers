@@ -15,6 +15,7 @@ reproduction steps, root cause analysis, and — where available — a proposed 
 |---|-----------|-----|------------|---------|
 | 01 | [`01-elemcol`](01-elemcol/) | Ghost rows appear in `@ElementCollection` grid after changing a date via the flatpickr widget | Global selector `$('.xava_date > input').change()` fires on all date inputs instead of the current one | `dateCalendarEditor.js:135` |
 | 02 | [`02-ordcol`](02-ordcol/) | Collection totals render under the wrong column when using `@OrderColumn` with 2+ `@ManyToOne` references | `mpListSize` hides visible total cells in `@OneToMany` collections where it should only apply to `@ElementCollection` | `collectionTotals.jsp:30-31` |
+| 03 | [`03-orphan`](03-orphan/) | Recursive loop in `MapFacade.remove()` with `@OrderColumn` + `orphanRemoval=true` — deleting a child from standalone module causes infinite recursion and may delete siblings | `removeCollectionElement` with `deletingElement=true` + `orphanRemoval` calls `remove()` recursively | `MapFacadeBean.java:618-633` |
 
 ## Quick start
 
@@ -35,6 +36,25 @@ See each project's `README.md` for specific reproduction steps.
 - **Java** 17+
 - **Maven** 3.9+
 - No external database needed — all projects use HSQLDB embedded (in-memory)
+
+## Project generation
+
+New projects are generated from the official OpenXava Maven archetype with no
+customizations beyond the minimal entity model needed to trigger each bug:
+
+```bash
+mvn archetype:generate \
+  -DarchetypeGroupId=org.openxava \
+  -DarchetypeArtifactId=openxava-archetype \
+  -DarchetypeVersion=7.7 \
+  -DgroupId=com.example \
+  -DartifactId=<project-name> \
+  -DinteractiveMode=false
+```
+
+The archetype provides the complete OX runtime (persistence.xml, xava.properties,
+naviox-users.properties, application.xml, controllers.xml, entry point class,
+HSQLDB manager). Only entity classes and README are added per project.
 
 ## Note
 
